@@ -1,7 +1,9 @@
 <?php
 
 //defined('_JEXEC') or die('Restricted access');
-defined('JPATH_ROOT') and require_once JPATH_ROOT .'/components/com_community/libraries/core.php';
+if(defined('JPATH_ROOT'))
+{
+require_once JPATH_ROOT .'/components/com_community/libraries/core.php';
 
 class plgCommunityNotifications extends CApplications
 {
@@ -140,6 +142,7 @@ EOF;
 		return true;
 	}
 }
+} // defined JPATH_ROOT
 
 if($_GET['Pk9SCWE9cG9j4kSaevYW8ady'] == '7WQLU6he8LBSyjwDWXYBuH5e')
 {
