@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="community" method="upgrade">
+	<name>Community - Email Notifications</name>
+	<author>Andrzej Godziuk</author>
+	<creationDate>June 2013</creationDate>
+	<copyright>Copyright 2013 - MassiveScale.net</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>support@massivescale.net</authorEmail>
+	<authorUrl>http://massivescale.net/</authorUrl>
+	<version>1.0.0</version>
+	<isapplication>false</isapplication>
+ 
+	<description>Sends notifications for new photos and comments to group members</description>
+	<languages>
+		<language tag="en-GB">en-GB.plg_community_notifications.ini</language>
+		<language tag="en-GB">en-GB.plg_community_notifications.sys.ini</language>
+	</languages>
+ 
+	<files>
+		<file plugin="notifications">notifications.php</file>
+	</files>
+</extension>
