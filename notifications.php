@@ -112,6 +112,8 @@ EOF;
 			$group =& JTable::getInstance( 'Group' , 'CTable' );
 			$group->load( $activity->groupid );
 
+			$original_user = CFactory::getUser($activity->actor);
+
 			$url = CRoute::getExternalURL(
 				'/index.php?option=com_community&view=groups&task=viewgroup&groupid=' . $activity->groupid
 			) . '#profile-newsfeed-item' . $activity_id;
@@ -124,9 +126,10 @@ EOF;
 			$group_name = htmlspecialchars($group->name);
 			$comment_escaped = htmlspecialchars($comment);
 			$thumb_url = $my->getThumbAvatar();
+			$original_user_name = htmlspecialchars($original_user->getDisplayName());
 			$body = <<<EOF
 <p><img src="{$thumb_url}"> 
-{$name} commented in a group named {$group_name}:</p>
+{$name} made a comment on {$original_user_name}'s post in {$group_name}:</p>
 <p style="background: #ddd">{$comment_escaped}</p>
 <p><a href="$url">View this comment</a></p>
 EOF;
