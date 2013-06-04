@@ -7,7 +7,7 @@
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>support@massivescale.net</authorEmail>
 	<authorUrl>http://massivescale.net/</authorUrl>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 	<isapplication>false</isapplication>
  
 	<description>Sends notifications for new photos and comments to group members</description>
