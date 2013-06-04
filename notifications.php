@@ -27,11 +27,6 @@ class plgCommunityNotifications extends CApplications
 			error_log('Not a group album');
 			return;
 		}
-		$groups = CFactory::getModel('Groups');
-		$members = $groups->getMembersId($album->groupid);
-
-		$db = JFactory::getDBO();
-		$date =& JFactory::getDate();
 		$my = CFactory::getUser();
 		$group =& JTable::getInstance( 'Group' , 'CTable' );
 		$group->load( $album->groupid );
@@ -59,6 +54,18 @@ class plgCommunityNotifications extends CApplications
 	</p>
 EOF;
 
+		$this->sendToGroupMembers($album->groupid, $subject, $body);
+	}
+
+	function sendToGroupMembers($groupId, $subject, $body)
+	{
+		$db = JFactory::getDBO();
+		$date =& JFactory::getDate();
+		$my = CFactory::getUser();
+		$groups = CFactory::getModel('Groups');
+
+		$members = $groups->getMembersId($groupId);
+
 		foreach($members as $user_id)
 		{
 			if($user_id == $my->id)
@@ -82,7 +89,52 @@ EOF;
 			$obj->email_type = ''; /* Non-empty type triggers validation */
 			$db->insertObject('#__community_mailq', $obj);
 		}
+	}
 
+	function onFormSave($form_name)
+	{
+		error_log($form_name);
+	}
+
+	function onAjaxCall($arrItems)
+	{
+		if($arrItems == 'system,ajaxStreamAddComment')
+		{
+			error_log("AJAX CALL:\n" . var_export($arrItems, 1));
+			$comment_arr = json_decode(JRequest::getVar('arg3'));
+			$comment = $comment_arr[1];
+			$id_arr = json_decode(JRequest::getVar('arg2'));
+			$activity_id = $id_arr[1];
+
+			$activities = CFactory::getModel('Activities');
+			$activity = $activities->getActivity($activity_id);
+
+			$group =& JTable::getInstance( 'Group' , 'CTable' );
+			$group->load( $activity->groupid );
+
+			$url = CRoute::getExternalURL(
+				'/index.php?option=com_community&view=groups&task=viewgroup&groupid=' . $activity->groupid
+			) . '#profile-newsfeed-item' . $activity_id;
+
+			$my = CFactory::getUser();
+
+			$subject = 'New comment in ' . $group->name;
+
+			$name = htmlspecialchars($my->getDisplayName());
+			$group_name = htmlspecialchars($group->name);
+			$comment_escaped = htmlspecialchars($comment);
+			$thumb_url = $my->getThumbAvatar();
+			$body = <<<EOF
+<p><img src="{$thumb_url}"> 
+{$name} commented in a group named {$group_name}:</p>
+<p style="background: #ddd">{$comment_escaped}</p>
+<p><a href="$url">View this comment</a></p>
+EOF;
+
+			$this->sendToGroupMembers($activity->groupid, $subject, $body);
+		}
+
+		return true;
 	}
 }
 ?>
