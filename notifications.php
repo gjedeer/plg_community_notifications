@@ -93,11 +93,6 @@ EOF;
 		}
 	}
 
-	function onFormSave($form_name)
-	{
-		error_log($form_name);
-	}
-
 	function onAjaxCall($arrItems)
 	{
 		if($arrItems == 'system,ajaxStreamAddComment')
