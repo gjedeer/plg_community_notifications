@@ -113,7 +113,7 @@ EOF;
 
 			$url = CRoute::getExternalURL(
 				'/index.php?option=com_community&view=groups&task=viewgroup&groupid=' . $activity->groupid
-			) . '#profile-newsfeed-item' . $activity_id;
+			) . '#wall-cmt-' . $activity_id;
 
 			$my = CFactory::getUser();
 
