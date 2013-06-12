@@ -9,4 +9,10 @@ All notifications are sent via email, using JomSocial's mail queue. Emails are H
 
 ## License
 
-GPLv3
+GPLv2
+
+## Installation
+
+Just download the code as a zip file using the link below and install it like any other Joomla package.
+
+https://github.com/gjedeer/plg_community_notifications/archive/master.zip
