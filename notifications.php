@@ -27,6 +27,20 @@ class plgCommunityNotifications extends CApplications
 			error_log('Not a group album');
 			return;
 		}
+
+		/* Check if album created recently */
+		CFactory::load( 'helpers' , 'time' );
+		$album_date = CTimeHelper::getDate($album->created);
+		$now = new JDate();
+
+		$time_diff = $now->toUnix() - $album_date->toUnix();
+		if($time_diff < 5 * 60)
+		{
+			error_log('Album created only ' . $time_diff . 's ago');
+			return;
+		}
+		
+		/* All good, sending the email */
 		$my = CFactory::getUser();
 		$group =& JTable::getInstance( 'Group' , 'CTable' );
 		$group->load( $album->groupid );
