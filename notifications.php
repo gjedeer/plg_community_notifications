@@ -110,7 +110,7 @@ EOF;
 		if($arrItems == 'system,ajaxStreamAddComment')
 		{
 			error_log("AJAX CALL:\n" . var_export($arrItems, 1));
-			$comment_arr = json_decode(JRequest::getVar('arg3'));
+			$comment_arr = json_decode(str_replace("\n", '\n', JRequest::getVar('arg3')));
 			$comment = $comment_arr[1];
 			$id_arr = json_decode(JRequest::getVar('arg2'));
 			$activity_id = $id_arr[1];
@@ -133,7 +133,7 @@ EOF;
 
 			$name = htmlspecialchars($my->getDisplayName());
 			$group_name = htmlspecialchars($group->name);
-			$comment_escaped = htmlspecialchars($comment);
+			$comment_escaped = nl2br(htmlspecialchars($comment));
 			$thumb_url = $my->getThumbAvatar();
 			$original_user_name = htmlspecialchars($original_user->getDisplayName());
 			$body = <<<EOF
