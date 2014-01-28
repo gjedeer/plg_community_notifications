@@ -98,7 +98,7 @@ EOF;
 			$obj->subject = $subject;
 			$obj->template = '';
 			$obj->params = '';
-			$obj->created = $date->toMySQL();
+			$obj->created = $date->toSQL();
 			$obj->status = 0;
 			$obj->email_type = ''; /* Non-empty type triggers validation */
 			$db->insertObject('#__community_mailq', $obj);
